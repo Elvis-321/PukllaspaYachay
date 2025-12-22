@@ -10,7 +10,7 @@ import Soporte from '../features/contents/Soporte';
 import Mas from "../features/contents/Mas";
 import Login from "../features/contents/Login";
 import NotFound from "../features/contents/NotFound";
-import Layout from "../components/principal/Layout";
+import Layout from "../components/principal/Layout/Layout";
 import PublicLayout from "../components/principal/PublicLayout";
 import ProtectedRoute from "./ProtectedRoute";
 import { useAuth } from '../context/AuthContext';  // Usamos el hook useAuth

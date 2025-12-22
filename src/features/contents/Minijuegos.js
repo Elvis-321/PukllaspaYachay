@@ -88,7 +88,7 @@ const InterfazMostrarContenidoJuego = ({ cambiarInterface, id_claseActual }) => 
     }
 /*
     if(id_claseActual === 4){
-      url="https://url4.com" 
+      url="https://url4.com"  
     }
   }*/
 

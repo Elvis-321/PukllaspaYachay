@@ -11,6 +11,7 @@
       height: 100vh;
       position: relative;
       overflow: hidden; /* Evita que el contenedor principal tenga scroll */
+      background-color: black;
     }
   }
   

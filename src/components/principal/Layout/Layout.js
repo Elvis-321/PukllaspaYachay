@@ -1,6 +1,6 @@
 import React from 'react';
-import Sidebar from './Sidebar';
-import MainContent from './MainContent'
+import Sidebar from '../Sidebar/Sidebar';
+import MainContent from '../MainContent/MainContent'
 import './Layout.css'
 
 // Importar componentes de contenido
