@@ -26,11 +26,10 @@ function Layout({ userId }) {
   ];
 
   const items_teacher = [
-     { label: 'Mis clases', icon: '📙', link: '/misClases' },
-     { label: 'Estadísticas', icon: '📊', link: '/estadisticas' },
-     { label: 'Crear contenido', icon: '✏️', link: '/crear-contenido' },
+     { label: 'Mis Cursos', icon: '📙', link: '/misCursos' },
      { label: 'Perfil', icon: '👤', link: '/perfil' },
-     { label: 'Soporte', icon: '', link: '/soporte' }
+     { label: 'Soporte', icon: '', link: '/soporte' },
+     { label: 'Más', icon: '⬇️', link: '/mas' }
   ];
 
   if(userRol === 'maestro')

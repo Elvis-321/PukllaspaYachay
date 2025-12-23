@@ -7,6 +7,8 @@ import Minijuegos from '../../../features/contents/Minijuegos';
 import Perfil from '../../../features/contents/Perfil';
 import Soporte from '../../../features/contents/Soporte';
 import Mas from "../../../features/contents/Mas";
+
+import MisCursos from "../../../features/contents/MisCursos";
 import { useAuth } from '../../../context/AuthContext'; // Importa useAuth
 import './MainContent.css'
 
@@ -23,7 +25,7 @@ function Content() {
         <Route path="soporte" element={<Soporte />} />
         <Route path="mas" element={<Mas />}/>
         
-        <Route path="/misCursos" element={<Aprender userId={userId} />} />
+        <Route path="/misCursos" element={<MisCursos userId={userId} />} />
       </Routes>
     </div>
   );
