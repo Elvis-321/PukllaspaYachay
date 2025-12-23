@@ -1,14 +1,21 @@
 import React from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import MainContent from '../MainContent/MainContent'
+import { useAuth } from '../../../context/AuthContext';
 import './Layout.css'
 
 // Importar componentes de contenido
 
 function Layout({ userId }) {
+  const {userRol} = useAuth();
   const pagName = "PUKLLASPA YACHAY";
 
-  const items = [
+   console.log("🔍 DEPURACIÓN LAYOUT:");
+   console.log("userRol:", userRol);
+
+  let items = [];
+
+  const items_student = [
     { label: 'Aprender', icon: '📙', link: '/aprender' },
     { label: 'Practicar', icon: '💪', link: '/practicar' },
     { label: 'Desafíos', icon: '🏆', link: '/desafios' },
@@ -17,6 +24,19 @@ function Layout({ userId }) {
     { label: 'Soporte', icon: '', link: '/soporte' },
     { label: 'Más', icon: '⬇️', link: '/mas' }
   ];
+
+  const items_teacher = [
+     { label: 'Mis clases', icon: '📙', link: '/misClases' },
+     { label: 'Estadísticas', icon: '📊', link: '/estadisticas' },
+     { label: 'Crear contenido', icon: '✏️', link: '/crear-contenido' },
+     { label: 'Perfil', icon: '👤', link: '/perfil' },
+     { label: 'Soporte', icon: '', link: '/soporte' }
+  ];
+
+  if(userRol === 'maestro')
+    items = items_teacher;
+  else if(userRol === 'estudiante')
+    items = items_student;
 
   return (
     <div className='app-container'>

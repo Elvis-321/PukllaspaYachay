@@ -1,5 +1,4 @@
 // components/Content.js
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Aprender from '../../../features/contents/Aprender';
 import Practicar from '../../../features/contents/Practicar';
@@ -24,6 +23,7 @@ function Content() {
         <Route path="soporte" element={<Soporte />} />
         <Route path="mas" element={<Mas />}/>
         
+        <Route path="/misCursos" element={<Aprender userId={userId} />} />
       </Routes>
     </div>
   );

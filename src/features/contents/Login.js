@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { confirmarUsuario } from "../../components/usuario/Usuario";
 import styles from './Login.module.css'; // Asegúrate de importar el archivo CSS
+import { buscarUsuario } from "../../components/usuario/Usuario";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -14,9 +15,14 @@ function Login() {
 
   const handleLogin = async () => {
     try {
+      console.log("=== DEBUG LOGIN INICIADO ===");
       const id_usuario = await confirmarUsuario(username, password);
       if (id_usuario) {
-        login(id_usuario);
+        const usuario = await buscarUsuario(id_usuario);
+        console.log("2. usuario completo recibido:", usuario);
+        console.log("3. Propiedades del usuario:", Object.keys(usuario));
+        const usuario_rol = usuario.rol;
+        login(id_usuario, usuario_rol);
         navigate("/aprender");
       } else {
         setError("Credenciales inválidas");

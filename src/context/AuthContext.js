@@ -18,27 +18,37 @@ export const AuthProvider = ({ children }) => {
     return savedUserId ? savedUserId : null; // Si no hay userId, inicializamos en null
   });
 
+  const [userRol, setUserRol] = useState(() => {
+    const savedUserRol = localStorage.getItem('userRol');
+    return savedUserRol;
+  })
+
   // Cuando el estado de isAuthenticated cambie, lo guardamos en localStorage
   useEffect(() => {
     localStorage.setItem('isAuthenticated', isAuthenticated.toString());
   }, [isAuthenticated]); // Se ejecuta cada vez que isAuthenticated cambia
 
-  const login = (id_usuario) => {
+  const login = (id_usuario, rol) => {
     setIsAuthenticated(true);
     setUserId(id_usuario);
+    setUserRol(rol);
+
     localStorage.setItem('isAuthenticated', 'true'); // Guarda el valor en localStorage
     localStorage.setItem('userId', id_usuario); // Guarda el id_usuario en localStorage
+    localStorage.setItem('userRol', rol);
   };
+
   const logout = () => {
     setIsAuthenticated(false);
     setUserId(null);
     localStorage.removeItem('isAuthenticated'); // Elimina el valor de localStorage
     localStorage.removeItem('userId');
+    localStorage.removeItem('userRol')
   };
   
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, userId, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, userId, userRol, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
