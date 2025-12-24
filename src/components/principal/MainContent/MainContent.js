@@ -9,6 +9,7 @@ import Soporte from '../../../features/contents/Soporte';
 import Mas from "../../../features/contents/Mas";
 
 import MisCursos from "../../../features/contents/MisCursos";
+import EditarClase from "../../EditarClase"
 import { useAuth } from '../../../context/AuthContext'; // Importa useAuth
 import './MainContent.css'
 
@@ -26,6 +27,7 @@ function Content() {
         <Route path="mas" element={<Mas />}/>
         
         <Route path="/misCursos" element={<MisCursos userId={userId} />} />
+        <Route path="/editar/:id_clase" element={<EditarClase/>} />
       </Routes>
     </div>
   );

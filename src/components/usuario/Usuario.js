@@ -57,5 +57,20 @@ const clasesDeUsuario = async(id_usuario) => {
     }
   }
 }
-  export {buscarUsuario, confirmarUsuario,clasesDeUsuario};
+
+const clasesDeUsuarioMaestro = async(id_usuario) => {
+  try{
+    const response = await axios.get(`${API_BASE_URL}/usuario/obtener-clases-de-usuario-maestro/${id_usuario}`);
+    return response.data
+  } catch (err) {
+    if (err.response) {
+      // Si el servidor devuelve un error, lo lanzamos para manejarlo fuera de la función
+      throw new Error(err.response.data.error);
+    } else {
+      // Si ocurre un error de red u otro tipo de error
+      throw new Error('Error de red o servidor no disponible');
+    }
+  }
+}
+  export {buscarUsuario, confirmarUsuario,clasesDeUsuario, clasesDeUsuarioMaestro};
 

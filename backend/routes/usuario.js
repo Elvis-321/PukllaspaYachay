@@ -7,6 +7,7 @@ const usuarioController = require('../controllers/usuarioController');
 router.get('/buscar-usuario/:id_usuario',usuarioController.getUsuarioById)
 router.post('/api/verificarUsuario', usuarioController.confirmarUsuario);
 router.get('/obtener-clases-de-usuario/:id_usuario',usuarioController.getClases);
+router.get('/obtener-clases-de-usuario-maestro/:id_usuario', usuarioController.getClasesMaestro);
 
 
 //no se estan usando

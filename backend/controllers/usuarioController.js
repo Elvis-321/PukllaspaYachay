@@ -82,8 +82,8 @@ exports.getClases = (req, res) => {
   // Ejecutamos la consulta en la base de datos
   db.query(sql, [id_usuario], (err, result) => {
     if (err) {
-      console.error('Error al obtener las clases del usuario:', err);
-      return res.status(500).json({ error: 'Error al obtener las clases del usuario' });
+      console.error('Error al obtener las clases del usuario estudiante:', err);
+      return res.status(500).json({ error: 'Error al obtener las clases del usuario estudiante' });
     }
 
     // Si no se encuentran clases para el usuario, devolvemos un array vacío
@@ -95,5 +95,32 @@ exports.getClases = (req, res) => {
   });
 };
 
+
+exports.getClasesMaestro = (req, res) => {
+  const { id_usuario } = req.params;
+
+  // Consulta con JOIN para obtener información completa
+  const sql = `
+    SELECT cm.id_clase_maestro, cm.estado_clase, c.id_clase, c.nombre_clase, c.descripcion_clase, c.img_clase, c.boton_color, cm.estado_clase FROM clase_maestro cm INNER JOIN clase c ON cm.id_clase = c.id_clase WHERE cm.id_usuario = ?;
+  `;
+
+  db.query(sql, [id_usuario], (err, results) => {
+    if (err) {
+      console.error('Error al obtener clases del maestro:', err);
+      return res.status(500).json({ 
+        success: false,
+        message: 'Error del servidor',
+        error: err.message 
+      });
+    }
+
+    // Formatear respuesta
+    res.json({
+      success: true,
+      count: results.length,
+      clases: results
+    });
+  });
+};
   
   

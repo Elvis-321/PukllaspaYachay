@@ -45,6 +45,7 @@ function MostrarUsuario({ userId }) {
       </div>
       <div className="profile-details">
         <p><strong>Edad:</strong> {user.edad}</p>
+        <p><strong>Cargo:</strong> {user.rol}</p>
         <p><strong>Nombre de usuario:</strong> {user.nombre_usuario}</p>
         <p><strong>Último acceso:</strong> {new Date(user.ultimo_acceso).toLocaleString()}</p>
         <p><strong>User ID:</strong> {userId}</p>
