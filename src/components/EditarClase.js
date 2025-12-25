@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { actualizarClase, actualizarClaseDeUsuarioMaestro } from './usuario/Usuario';
 
 function EditarClase() {
   const {id_clase } = useParams();          // 📍 ID desde URL
@@ -16,14 +17,37 @@ function EditarClase() {
   const [estado, setEstado] = useState(claseDelState?.estado_clase || 'activa');
   const [imagen, setImagen] = useState(claseDelState?.img_clase || '');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(`Actualizando clase ${id_clase}:`, { nombre });
-    // Aquí iría tu API call...
-    
-    // Vuelve a la lista
-    navigate('/');
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  
+  if (!nombre.trim()) {
+    alert('El nombre de la clase es requerido');
+    return;
+  }
+
+  const datosClase = {
+    nombre_clase: nombre,
+    descripcion_clase: descripcion,
+    img_clase: imagen,
+    boton_color: color
   };
+
+  // Actualizar clase principal
+  const resultadoClase = await actualizarClase(id_clase, datosClase);
+  
+  if (!resultadoClase.success) {
+    alert(`Error: ${resultadoClase.error}`);
+    return;
+  }
+
+  // Actualizar estado si existe
+  if (claseDelState?.id_clase_maestro && estado) {
+    await actualizarClaseDeUsuarioMaestro(claseDelState.id_clase_maestro, estado);
+  }
+
+  alert('Clase actualizada');
+  navigate('/misCursos');
+};
 
   const handleCancelar = () => {
     navigate('/misCursos');
@@ -71,8 +95,8 @@ function EditarClase() {
             value={estado}
             onChange={(e) => setEstado(e.target.value)}
           >
-            <option value="activa">Activa</option>
-            <option value="inactiva">Inactiva</option>
+            <option value="activo">Activo</option>
+            <option value="inactivo">Inactivo</option>
             <option value="borrador">Borrador</option>
           </select>
         </div>

@@ -67,7 +67,7 @@ exports.confirmarUsuario = (req, res) => {
   });
 };
 
-// Obtener clases y progreso de un usuario por id_usuario
+// Obtener clases y progreso de un usuario estudiante por id_usuario
 exports.getClases = (req, res) => {
   const { id_usuario } = req.params;  // Capturamos el id_usuario de los parámetros de la URL
 
@@ -120,6 +120,35 @@ exports.getClasesMaestro = (req, res) => {
       count: results.length,
       clases: results
     });
+  });
+};
+
+exports.updateClase = (req, res) => {
+  const {id_clase} = req.params;
+  const {nombre_clase, descripcion_clase, img_clase, boton_color} = req.body;
+  const sql = 'UPDATE clase SET nombre_clase = ?, descripcion_clase = ?, img_clase = ?, boton_color = ? WHERE id_clase = ?';
+
+  db.query(sql,[nombre_clase, descripcion_clase, img_clase, boton_color, id_clase], (err, result) => {
+    if (err) {
+      console.error('Error al actualizar clase:', err);
+      res.status(500).json({ error: 'Error al actualizar clase' });
+    } else {
+      res.send('Clase actualizada');
+    }
+  });
+};
+
+exports.updateClaseMaestroEstado = (req, res) => {
+  const {id_clase_maestro} = req.params;
+  const {estado_clase} = req.body;
+  const sql = 'UPDATE clase_maestro SET estado_clase = ? WHERE id_clase_maestro = ?';
+  db.query(sql, [estado_clase, id_clase_maestro], (err, result) => {
+ if (err) {
+      console.error('Error al actualizar el estado de la clase:', err);
+      res.status(500).json({ error: 'Error al actualizar el estado de la clase' });
+    } else {
+      res.send('Clase actualizada');
+    }
   });
 };
   

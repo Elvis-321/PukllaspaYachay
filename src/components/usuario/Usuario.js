@@ -72,5 +72,83 @@ const clasesDeUsuarioMaestro = async(id_usuario) => {
     }
   }
 }
-  export {buscarUsuario, confirmarUsuario,clasesDeUsuario, clasesDeUsuarioMaestro};
+
+const actualizarClaseDeUsuarioMaestro = async(id_clase_maestro,estado_clase) => {
+  try{
+    // Configurar la solicitud
+    const response = await fetch(`${API_BASE_URL}/usuario/actualizar-clase-maestro/${id_clase_maestro}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        estado_clase: estado_clase
+      })
+    });
+
+    // Verificar si la respuesta es exitosa
+    if (!response.ok) {
+      // Intentar obtener el mensaje de error del backend
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `Error HTTP: ${response.status}`);
+    }
+
+    // Obtener la respuesta del backend
+    const result = await response.text(); // Usamos text() porque tu backend envía 'Clase actualizada'
+    
+    console.log('Clase actualizada exitosamente:', result);
+    return { success: true, message: result };
+  } catch (error){
+    console.error('Error al actualizar la clase:', error.message);
+  }
+}
+
+
+const actualizarClase = async (id_clase, datosClase) => {
+  try {
+    // Desestructurar los datos necesarios
+    const { nombre_clase, descripcion_clase, img_clase, boton_color } = datosClase;
+
+    const response = await fetch(`${API_BASE_URL}/usuario/actualizar-clase/${id_clase}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nombre_clase,
+        descripcion_clase: descripcion_clase || '',
+        img_clase: img_clase || '',
+        boton_color: boton_color || ''
+      })
+    });
+
+    // Verificar si la respuesta es exitosa
+    if (!response.ok) {
+      // Intentar obtener el mensaje de error del backend
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `Error HTTP: ${response.status}`);
+    }
+
+    // Obtener la respuesta del backend
+    const result = await response.text();
+    return { 
+      success: true, 
+      message: result,
+      id_clase: id_clase 
+    };
+
+  } catch (error) {
+    console.error('Error al actualizar la clase:', error.message);
+    
+    // Devolver un objeto con el error para manejo en el componente
+    return { 
+      success: false, 
+      error: error.message,
+      message: 'No se pudo actualizar la clase',
+      id_clase: id_clase
+    };
+  }
+};
+
+export {buscarUsuario, confirmarUsuario,clasesDeUsuario, clasesDeUsuarioMaestro, actualizarClaseDeUsuarioMaestro, actualizarClase};
 
